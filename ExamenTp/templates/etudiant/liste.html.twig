@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{{ asset('/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('styles.css') }}">
+
+    <title>Liste des étudiants</title>
+</head>
+<body>
+<h3 id="hi">Liste des étudiants</h3>
+<a href="{{ path('ajouter.etudiant') }}" >
+    Ajouter un étudiant
+</a>
+<table id="table" class="table ">
+    <thead >
+    <tr>
+        <th>firstname</th>
+        <th>name</th>
+        <th>section</th>
+        <th>action</th>
+    </tr>
+    </thead>
+    <tbody >
+    {% for etudiant in liste %}
+        <tr class="table-{% if loop.index is odd %}info{% else %}warning{% endif %}">
+            <td >{{ etudiant.prenom }}</td>
+            <td >{{ etudiant.nom }}</td>
+            <td >{% if etudiant.section == null %}
+                etudiant non encore effectué à une section
+                {% else %}
+                {{ etudiant.section }}
+                {% endif %}</td>
+            <td >
+                    <a href="{{ path('edit.etudiant',{id:etudiant.id}) }}" >
+                        edit
+                    </a>
+                    <a href="{{ path('delete.etudiant',{id:etudiant.id}) }}" >
+                      delete
+                    </a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</body>
+<script src="{{ asset('script.js') }}"></script>
+</html>
